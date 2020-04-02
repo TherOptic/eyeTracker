@@ -56,8 +56,7 @@ def main():
             center_top = midpoint(landmarks.part(37), landmarks.part(38))
             center_bottom = midpoint(landmarks.part(41), landmarks.part(40))
 
-            left_dot  = cv2.circle(frame, (landmarks.part(36).x, landmarks.part(36).y), 1, (0, 0, 255), -1 )
-            right_dot = cv2.circle(frame,(landmarks.part(39).x, landmarks.part(39).y), 1, (0, 0, 255), -1 )
+          
             width = 5
             #cv2.rectangle(frame, (landmarks.part(36).x - width, center_top[1] - width), (landmarks.part(39).x + width , center_bottom[1] + width),(0,225,255),1)
             eye = frame[center_top[1]-width: center_bottom[1] + width, landmarks.part(36).x - width : landmarks.part(39).x + width]
@@ -66,8 +65,10 @@ def main():
             keypoints = blob_process(eye, threshold, "l" )
         
             if len(keypoints) >=1:
-                frame = cv2.circle(frame, (int(keypoints[0].pt[0] + landmarks.part(36).x - width ), center_top[1]-width+ int(keypoints[0].pt[1])), 1, (0, 255, 255), -1 )
-
+                frame = cv2.circle(frame, (int(keypoints[0].pt[0] + landmarks.part(36).x - width ), center_top[1]-width+ int(keypoints[0].pt[1])), 1, (0, 255, 255), 5 )
+  
+            left_dot  = cv2.circle(frame, (landmarks.part(36).x, landmarks.part(36).y), 1, (0, 0, 255), -1 )
+            right_dot = cv2.circle(frame,(landmarks.part(39).x, landmarks.part(39).y), 1, (0, 0, 255), -1 )
 
             # right eye on screen
             left_point = (landmarks.part(42).x, landmarks.part(42).y)
@@ -76,8 +77,7 @@ def main():
             center_top = midpoint(landmarks.part(43), landmarks.part(44))
             center_bottom = midpoint(landmarks.part(47), landmarks.part(46))
 
-            left_dot  = cv2.circle(frame, (landmarks.part(42).x, landmarks.part(42).y), 1, (0, 0, 255), -1 )
-            right_dot = cv2.circle(frame,(landmarks.part(45).x, landmarks.part(45).y), 1, (0, 0, 255), -1 )
+           
 
             width = 5
             #cv2.rectangle(frame, (left_point[0] - width, center_top[1] - width), (right_point[0] + width , center_bottom[1] + width),(0,225,255),1)
@@ -86,8 +86,10 @@ def main():
             keypoints = blob_process(eye, threshold, "r" )
         
             if len(keypoints) >=1:
-                frame = cv2.circle(frame, (int(keypoints[0].pt[0] + left_point[0] - width ), center_top[1] - width + int(keypoints[0].pt[1])), 1, (0, 255, 255), -1 )
-
+                frame = cv2.circle(frame, (int(keypoints[0].pt[0] + left_point[0] - width ), center_top[1] - width + int(keypoints[0].pt[1])), 1, (0, 255, 255), 5 )
+            
+            left_dot  = cv2.circle(frame, (landmarks.part(42).x, landmarks.part(42).y), 1, (0, 0, 255), -1 )
+            right_dot = cv2.circle(frame,(landmarks.part(45).x, landmarks.part(45).y), 1, (0, 0, 255), -1 )
         
         cv2.imshow("frame", frame)
         if cv2.waitKey(1) & 0xFF == ord('q'):
@@ -96,3 +98,5 @@ def main():
 
     cap.release()
     cv2.destroyAllWindows()
+
+main()
